@@ -7,6 +7,6 @@ import com.frank.shop.utils.MailUtils;
 public class MailTest {
 	@Test
 	public void testSendMain(){
-		MailUtils.sendMain("Frank@shop.com", "002");
+		MailUtils.sendMail("Frank@shop.com", "002");
 	}
 }

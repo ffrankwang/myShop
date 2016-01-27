@@ -22,7 +22,7 @@ public class MailUtils {
 	 * @param code
 	 *            :激活码
 	 */
-	public static void sendMain(String to, String code) {
+	public static void sendMail(String to, String code) {
 		/**
 		 * 1.获取一个Session对象 2.创建一个代表邮件对象的Message 3.发送邮件Transport
 		 */
@@ -48,9 +48,9 @@ public class MailUtils {
 			// 设置标题
 			message.setSubject("来自Frank的购物商场的官方邮件。");
 			message.setContent(
-					"<h1>购物商城Frnk官方激活邮件!点下面链接完成激活操作!</h1><h3><a href='http://192.168.100.105:8080/shop/user_active.action?code="
+					"<h1>购物商城Frnk官方激活邮件!点下面链接完成激活操作!</h1><h3><a href='http://192.168.100.105:8080/myShop/user_active.action?code="
 							+ code
-							+ "'>http://192.168.36.103:8080/shop/user_active.action?code="
+							+ "'>http://192.168.100.105:8080/myShop/user_active.action?code="
 							+ code + "</a></h3>", "text/html;charset=UTF-8");
 			// 发送邮件
 			Transport.send(message);

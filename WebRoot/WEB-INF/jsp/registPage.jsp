@@ -12,6 +12,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet" type="text/css"/>
 <link href="${pageContext.request.contextPath}/css/register.css" rel="stylesheet" type="text/css"/>
 <script>
+function refresh(obj){
+              obj.src="${pageContext.request.contextPath}/checkImg.action?id="+Math.random();
+           }
 function checkForm(){
 		// 校验用户名:
 		// 获得用户名文本框的值:
@@ -183,7 +186,7 @@ function checkForm(){
 									</th>
 									<td>
 										<span class="fieldSet">
-											<input type="text" id="captcha" name="captcha" class="text captcha" maxlength="4" autocomplete="off"/><img id="captchaImage" class="captchaImage" src="${pageContext.request.contextPath}/image/captcha.jhtml" title="点击更换验证码"/>
+											<input type="text" id="captcha" name="captcha" class="text captcha" maxlength="4" autocomplete="off"/><img id="codeImg" class="captchaImage" src="${pageContext.request.contextPath}/checkImg.action" onclick="refresh(this)" title="点击更换验证码"/>
 										</span>
 									</td>
 								</tr>

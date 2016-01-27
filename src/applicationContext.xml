@@ -60,8 +60,16 @@
 	<!-- 配置访问首页的Action -->
 	<bean id="indexAction" class="com.frank.shop.index.action.IndexAction"
 		scope="prototype" />
-	
-	
+	<!-- 配置访问用户模块的Action -->
+	<bean id="userAction" class="com.frank.shop.user.action.UserAction"
+		scope="prototype">
+		<!-- 注入Service -->
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<!-- 配置验证码Action -->
+	<bean id="checkImgAction" class="com.frank.shop.user.action.CheckImgAction"
+		scope="prototype"></bean>
 
 	<!-- Dao的配置 =========================== -->
 	<bean id="userDao" class="com.frank.shop.user.dao.UserDao" scope="prototype">
@@ -70,12 +78,7 @@
 	<!-- Service的配置 =========================== -->
 	<bean id="userService" class="com.frank.shop.user.service.UserService"
 		scope="prototype">
-		<property name="userDao" ref="userDao"/>
+		<property name="userDao" ref="userDao" />
 	</bean>
-	<!-- 配置访问用户模块的Action -->
-	<bean id="userAction" class="com.frank.shop.user.action.UserAction"
-		scope="prototype">
-		<!-- 注入Service -->
-		<property name="userService" ref="userService"/>
-	</bean>
+
 </beans>

@@ -20,6 +20,13 @@
 		<action name="user_*" class="userAction" method="{1}">
 			<result name="registPage">/WEB-INF/jsp/registPage.jsp</result>
 			<result name="input">/WEB-INF/jsp/registPage.jsp</result>
+			<result name="active">/WEB-INF/jsp/msg.jsp</result>
+			<result name="loginPage">/WEB-INF/jsp/loginPage.jsp</result>
+			<result name="loginSuccess">/WEB-INF/jsp/index.jsp</result>
+			<result name="logout">/WEB-INF/jsp/index.jsp</result>
+			<result name="checkcodeFail">/WEB-INF/jsp/registPage.jsp</result>
+		</action>
+		<action name="checkImg" class="checkImgAction">
 		</action>
 	</package>
 
