@@ -186,7 +186,7 @@ function checkForm(){
 									</th>
 									<td>
 										<span class="fieldSet">
-											<input type="text" id="captcha" name="captcha" class="text captcha" maxlength="4" autocomplete="off"/><img id="codeImg" class="captchaImage" src="${pageContext.request.contextPath}/checkImg.action" onclick="refresh(this)" title="点击更换验证码"/>
+											<input type="text" id="captcha" name="checkcode" class="text captcha" maxlength="4" autocomplete="off"/><img id="codeImg" class="captchaImage" src="${pageContext.request.contextPath}/checkImg.action" onclick="refresh(this)" title="点击更换验证码"/>
 										</span>
 									</td>
 								</tr>

@@ -12,7 +12,7 @@
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- 配置连接池: -->
-	<!-- 引入外部属性文件 -->
+	<!-- 引入外部属性文件 -->	
 	<context:property-placeholder location="classpath:jdbc.properties" />
 	<!-- 配置C3P0连接池: -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -37,10 +37,17 @@
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
-		<!-- 配置Hibernate的映射文件 -->
+		<!-- 配置Hibernate的映射文件 S -->
 		<property name="mappingResources">
 			<list>
 				<value>com/frank/shop/user/domain/User.hbm.xml</value>
+				<value>com/frank/shop/category/domain/Category.hbm.xml</value>
+
+				<value>com/frank/shop/product/domain/Product.hbm.xml</value>
+				<value>com/frank/shop/categorysecond/domain/CategorySecond.hbm.xml</value>
+				<value>com/frank/shop/order/domain/Order.hbm.xml</value>
+				<value>com/frank/shop/order/domain/OrderItem.hbm.xml</value>
+				<value>com/frank/shop/adminuser/domain/AdminUser.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -59,7 +66,10 @@
 
 	<!-- 配置访问首页的Action -->
 	<bean id="indexAction" class="com.frank.shop.index.action.IndexAction"
-		scope="prototype" />
+		scope="prototype">
+		<property name="categoryService" ref="categoryService"></property>
+		<property name="productService" ref="productService"></property>
+	</bean>
 	<!-- 配置访问用户模块的Action -->
 	<bean id="userAction" class="com.frank.shop.user.action.UserAction"
 		scope="prototype">
@@ -71,14 +81,98 @@
 	<bean id="checkImgAction" class="com.frank.shop.user.action.CheckImgAction"
 		scope="prototype"></bean>
 
-	<!-- Dao的配置 =========================== -->
+	<!-- 配置显示商品详情Action -->
+	<bean id="productAction" class="com.frank.shop.product.action.ProductAction"
+		scope="prototype">
+		<property name="productService" ref="productService"></property>
+	</bean>
+
+	<!-- 配置访问购物车的action -->
+	<bean id="cartAction" class="com.frank.shop.cart.action.CartAction"
+		scope="prototype">
+		<property name="productService" ref="productService"></property>
+	</bean>
+	
+	<!-- 配置访问订单页面的Action -->
+	<bean id="orderAction" class="com.frank.shop.order.action.OrderAction" scope="prototype">
+		<property name="orderService" ref="orderService"></property>
+	</bean>
+	<!-- 配置访问用户后台管理页面的Action -->
+	<bean id="adminUserAction" class="com.frank.shop.adminuser.action.AdminUserAction" scope="prototype">
+		<property name="adminUserService" ref="adminUserService"></property>
+	</bean>
+	<!-- 配置访问后台管理一级分类页面的Action -->
+	<bean id="adminCategoryAction" class="com.frank.shop.category.adminaction.AdminCategoryAction" scope="prototype">
+		<property name="categoryService" ref="categoryService"></property>
+	</bean>
+	<!-- 配置访问后台管理二级分类页面的Action -->
+	<bean id="adminCategorySercondAction" class="com.frank.shop.categorysecond.adminAction.AdminCategorySecondAction" scope="prototype">
+		<property name="categorySecondService" ref="categorySecondService"></property>
+	</bean>
+	<!-- 配置访问后台管理商品页面的Action -->
+	<bean id="adminProductAction" class="com.frank.shop.product.adminAction.AdminProductAction" scope="prototype">
+		<property name="productService" ref="productService"></property>
+		<property name="categoryService" ref="categoryService"></property>
+	</bean>
+	<!-- 配置访问后台管理订单页面的Action -->
+	<bean id="adminOrderAction" class="com.frank.shop.order.adminAction.AdminOrderAction" scope="prototype">
+		<property name="orderService" ref="orderService"></property>
+	</bean>
+	
+	<!--Dao的配置 =========================== -->
+	<!-- 配置用户模块Dao -->
 	<bean id="userDao" class="com.frank.shop.user.dao.UserDao" scope="prototype">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<!-- Service的配置 =========================== -->
+	<!-- 配置一级分类Dao -->
+	<bean id="categoryDao" class="com.frank.shop.category.dao.CategoryDao"
+		scope="prototype">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 配置商品Dao -->
+	<bean id="productDao" class="com.frank.shop.product.dao.ProductDao"
+		scope="prototype">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置订单DAO -->
+	<bean id="orderDao" class="com.frank.shop.order.dao.OrderDao" scope="prototype">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置后台用户管理DAO -->
+	<bean id="adminUserDao" class="com.frank.shop.adminuser.dao.AdminUserDao" scope="prototype">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置二级分类DAO -->
+	<bean id="categorySecondDao" class="com.frank.shop.categorysecond.dao.CategorySecondDao" scope="prototype">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 配置Service =========================== -->
+	<!-- 配置用户模块service -->
 	<bean id="userService" class="com.frank.shop.user.service.UserService"
 		scope="prototype">
 		<property name="userDao" ref="userDao" />
 	</bean>
-
+	<!-- 配置一级分类Service -->
+	<bean id="categoryService" class="com.frank.shop.category.service.CategoryService"
+		scope="prototype">
+		<property name="categoryDao" ref="categoryDao"></property>
+	</bean>
+	<!-- 配置商品Service -->
+	<bean id="productService" class="com.frank.shop.product.service.ProductService"
+		scope="prototype">
+		<property name="productDao" ref="productDao"></property>
+	</bean>
+	<!-- 配置订单Service -->
+	<bean id="orderService" class="com.frank.shop.order.service.OrderService" scope="prototype">
+		<property name="orderDao" ref="orderDao"></property>
+	</bean>
+	<!-- 配置后台用户管理Service -->
+	<bean id="adminUserService" class="com.frank.shop.adminuser.service.AdminUserService" scope="prototype">
+		<property name="adminUserDao" ref="adminUserDao"></property>
+	</bean>
+	<!-- 配置二级分类Service -->
+	<bean id="categorySecondService" class="com.frank.shop.categorysecond.service.CategorySecondService" scope="prototype">
+		<property name="categorySecondDao" ref="categorySecondDao"></property>
+	</bean>
 </beans>

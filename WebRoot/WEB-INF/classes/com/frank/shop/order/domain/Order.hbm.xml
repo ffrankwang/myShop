@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.frank.shop.order.domain.Order" table="orders">
+		<id name="oid">
+			<generator class="native"></generator>
+		</id>
+		<property name="total" />
+		<property name="ordertime" />
+		<property name="state" />
+		<property name="name" />
+		<property name="phone" />
+		<property name="addr" />
+		<!-- 配置关联关系：与用户的多对一关系 -->
+		<many-to-one name="user" class="com.frank.shop.user.domain.User" column="uid" lazy="false"></many-to-one>
+		<!-- 配置关联关系：与订单项的一对多关系 -->
+		<set name="orderItems" lazy="false" cascade="save-update">
+			<key column="oid"/>
+			<one-to-many class="com.frank.shop.order.domain.OrderItem"/>
+		</set>
+	</class>
+</hibernate-mapping>
